@@ -1,0 +1,8 @@
+.icons span:hover{
+    color: rgb(85, 227, 246);
+}
+.icons span{
+    margin-left:10px;
+    cursor: pointer;
+    
+}
