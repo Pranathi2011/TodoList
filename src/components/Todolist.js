@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import './Todo.css';
@@ -6,25 +6,32 @@ import './Todo.css';
 function Todo() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
-  const [completedTodos,setCompletedTodos] = useState([]);
+  // const [completedTodos,setCompletedTodos] = useState([]);
 
   const onClickHandler = (e) => {
     let updatedTodos = [...todos];
-    updatedTodos.push(input);
+    let newTodo = {title:input,status:false};
+    updatedTodos.push(newTodo);
     setTodos(updatedTodos);
     setInput("");
     e.preventDefault();
   };
   const handleComplete = (id) =>{
-    let completed = todos.filter((task,index)=>index===id);
-    completed.push(...completedTodos);
-    setCompletedTodos(completed);
-    console.log(completed);
+    let newTasks = todos.map((task,index)=>{
+      if(index===id){
+        let updates = {title:task.title,status:!task.status};
+        let filtered = todos.filter((task,index)=> index!== id );
+        filtered.push(updates);
+        setTodos(filtered);
+        return filtered;
+      }
+      return task;
+    })
   };
   const handleDel = (id) => {
     let filtered = todos.filter((task,index)=> index!== id );
     setTodos(filtered);
-  }
+  };
 
   return (
     <div style={{ backgroundColor: "rgb(6, 46, 89)" }}>
@@ -60,9 +67,11 @@ function Todo() {
       <div className="display" style={{
         padding:'10px'
       }}>
-        {todos.map((task, index) => {
+        {todos&&todos
+        .map((task, index) => {
           return (
-            <div style={{width:'100%'}} key={index + 1}>
+            <React.Fragment key={index + 1} >
+            <div style={{width:'100%'}} >
               <div
                 className="task"
                 style={{
@@ -100,11 +109,12 @@ function Todo() {
                   >
                     {index + 1}
                   </p>
-                  <p
+                  
+                  <p className= {task.status? 'done': ''}
                   style={{
-                    margin: "0px 5px",
+                    margin: "0px 5px"
                   }} 
-                  >{task}</p>
+                  >{task.title}</p>
                 </div>
                 <div className="icons" 
                  style={{
@@ -121,6 +131,7 @@ function Todo() {
                 </div>
               </div>
             </div>
+            </React.Fragment>
           );
         })}
       </div>
