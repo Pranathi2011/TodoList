@@ -6,7 +6,7 @@ import './Todo.css';
 function Todo() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
-  // const [completedTodos,setCompletedTodos] = useState([]);
+  const [completedTodos,setCompletedTodos] = useState([]);
 
   const onClickHandler = (e) => {
     let updatedTodos = [...todos];
@@ -27,6 +27,11 @@ function Todo() {
       }
       return task;
     })
+    let filtered = todos.filter((task,index)=>index===id);
+    let completed = [...completedTodos];
+    completed.push(filtered);
+    setCompletedTodos(completed);
+    console.log(completed);
   };
   const handleDel = (id) => {
     let filtered = todos.filter((task,index)=> index!== id );
@@ -34,7 +39,7 @@ function Todo() {
   };
 
   return (
-    <div style={{ backgroundColor: "rgb(6, 46, 89)" }}>
+    <div style={{ backgroundColor: "rgb(6, 46, 89)",paddingTop:'20px',paddingBottom:'20px' }}>
       <div className="input" style={{ margin: "10px", marginLeft: "48px" }}>
         <form action="">
           <input
