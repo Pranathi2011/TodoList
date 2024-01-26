@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  
   return (
-    <div>
+    <div >
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="#" style={{color:'white'}} >

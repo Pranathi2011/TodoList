@@ -9,10 +9,7 @@ function Todo() {
   const [completedTodos,setCompletedTodos] = useState([]);
 
   const onClickHandler = (e) => {
-    let updatedTodos = [...todos];
-    let newTodo = {title:input,status:false};
-    updatedTodos.push(newTodo);
-    setTodos(updatedTodos);
+    setTodos([...todos,{title:input,status:false}])
     setInput("");
     e.preventDefault();
   };
@@ -28,10 +25,7 @@ function Todo() {
       return task;
     })
     let filtered = todos.filter((task,index)=>index===id);
-    let completed = [...completedTodos];
-    completed.push(filtered);
-    setCompletedTodos(completed);
-    console.log(completed);
+    setCompletedTodos([...completedTodos,filtered]);
   };
   const handleDel = (id) => {
     let filtered = todos.filter((task,index)=> index!== id );
@@ -104,8 +98,8 @@ function Todo() {
                     style={{
                       border: "1px solid white",
                       borderRadius: "10px",
-                      height: "19px",
-                      width: "19px",
+                      height: "21px",
+                      width: "21px",
                       margin: "0px 5px",
                       textAlign:'center',
                       justifyContent: "center",
@@ -124,7 +118,7 @@ function Todo() {
                 <div className="icons" 
                  style={{
                     display:'flex',
-                    position:'fixed',
+                    position:'absolute',
                     transform:'translateX(370px)'
                  }}>
                   <span>
